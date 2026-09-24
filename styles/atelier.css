@@ -1,0 +1,277 @@
+/* Design ornaments + extra motion. Same DOM structure. */
+
+.split__list {
+  --tick-x: 17px;
+  counter-reset: step;
+  position: relative;
+}
+
+.split__list:before,
+.split__list:after {
+  content: "";
+  position: absolute;
+  left: var(--tick-x);
+  top: 26px;
+  bottom: 26px;
+  width: 2px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.split__list:before {
+  background: linear-gradient(180deg, #ff2f00, #ff6a2e88, #ff2f0044);
+  transform-origin: top center;
+  animation: lineDraw 1.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.split__list:after {
+  left: calc(var(--tick-x) - 3px);
+  top: 28px;
+  bottom: auto;
+  width: 8px;
+  height: 20%;
+  border-radius: 99px;
+  background: linear-gradient(180deg, transparent, #ffb347, #fff, #ff2f00, transparent);
+  animation: splitTravel 2.6s ease-in-out infinite 0.6s;
+  will-change: transform;
+}
+
+@keyframes lineDraw {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
+
+@keyframes splitTravel {
+  0% {
+    transform: translate3d(0, 0, 0);
+    opacity: 0;
+  }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% {
+    transform: translate3d(0, 400%, 0);
+    opacity: 0;
+  }
+}
+
+.split__list li {
+  counter-increment: step;
+  position: relative;
+}
+
+.split__list .tick {
+  position: relative;
+  z-index: 2;
+}
+
+.pc__av,
+.pcard__av {
+  box-shadow: 0 0 0 3px #ff2f0033, 0 8px 18px #0006;
+  position: relative;
+}
+
+.pc__tag,
+.pc__tag--ok,
+.mock__chip {
+  will-change: transform;
+}
+
+.stats > div {
+  border: 1px solid #ff6a2e33;
+  background:
+    radial-gradient(circle at 80% 120%, #ff2f0026, transparent 55%),
+    linear-gradient(180deg, #ffffff10, #ffffff05);
+}
+
+.stat__n {
+  background: linear-gradient(180deg, #fff, #ffb347);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.panel,
+.mods,
+.bcard {
+  overflow: hidden;
+}
+
+.price-card:not(.is-featured) {
+  overflow: hidden;
+}
+
+.panel:after,
+.mods:after,
+.bcard:after,
+.price-card:after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg, transparent 32%, #ffffff24 48%, transparent 62%);
+  transform: translateX(-140%);
+  pointer-events: none;
+}
+
+.panel:hover:after,
+.mods:hover:after,
+.bcard:hover:after,
+.price-card:hover:after {
+  animation: sweep 0.75s ease;
+}
+
+@keyframes sweep {
+  from { transform: translateX(-140%); }
+  to { transform: translateX(140%); }
+}
+
+.mods__num {
+  background: linear-gradient(180deg, #ff6a2e, #ff2f00);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-weight: 800;
+}
+
+.mod.is-on .mod__main h3 {
+  background: linear-gradient(90deg, #fff 0%, #ffd2bc 70%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.mod__stat b {
+  color: #ff6a2e;
+  text-shadow: 0 0 20px #ff2f0066;
+}
+
+.marquee__item {
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid #ff6a2e33;
+  background: #ff2f0010;
+}
+
+.cta__inner {
+  padding: 48px 36px;
+  border-radius: 32px;
+  border: 1px solid #ffffff22;
+  background:
+    radial-gradient(ellipse 80% 70% at 50% 120%, #ff2f0038, transparent 55%),
+    #ffffff0a;
+  box-shadow: 0 30px 80px #0006, inset 0 1px 0 #ffffff22;
+}
+
+.price-card h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.price-card.is-featured h3:after {
+  content: "Best value";
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: #ff2f00;
+  color: #fff;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 800;
+}
+
+.bcard__eyebrow {
+  color: #ff6a2e;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 11px;
+}
+
+.panel__card {
+  border-radius: 18px;
+}
+
+.hero__trust li {
+  background: #ffffff0d;
+}
+
+.nav.is-stuck {
+  box-shadow: 0 12px 40px #ff2f0014, 0 10px 40px #0000002e;
+}
+
+.footer__top {
+  position: relative;
+}
+
+.footer__top:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -28px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #ff6a2e88, transparent);
+}
+
+.demo-modal__panel {
+  border: 1px solid #ff6a2e44;
+  background:
+    radial-gradient(ellipse 70% 40% at 100% 0%, #ff2f0026, transparent 50%),
+    #141119;
+}
+
+.auth-card {
+  overflow: hidden;
+}
+
+.auth-card:after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 30%, #ffffff18 48%, transparent 62%);
+  transform: translateX(-130%);
+  pointer-events: none;
+}
+
+.auth-card:hover:after {
+  animation: sweep 0.7s ease;
+}
+
+.rot__dot-prog {
+  background: linear-gradient(90deg, #fff, #ffb347) !important;
+}
+
+.hero__visual .rot__card {
+  background:
+    linear-gradient(#1a0f0c, #1a0f0c) padding-box,
+    linear-gradient(160deg, #ff6a2e88, transparent 40%, #7c4dff44) border-box;
+}
+
+.logos__label {
+  position: relative;
+}
+
+.logos__label:before,
+.logos__label:after {
+  content: "";
+  display: inline-block;
+  width: 28px;
+  height: 1px;
+  margin: 0 12px 4px;
+  background: #ff6a2e88;
+  vertical-align: middle;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel:after,
+  .mods:after,
+  .bcard:after,
+  .price-card:after,
+  .pc__tag,
+  .split__list:before,
+  .split__list:after,
+  .auth-card:after {
+    animation: none;
+  }
+  .split__list:after { opacity: 0; }
+}

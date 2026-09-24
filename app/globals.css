@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a.btn,
+a.nav__login,
+a.brand,
+a.drawer__link,
+a.link-arrow,
+a.bcard__link {
+  text-decoration: none;
+}
