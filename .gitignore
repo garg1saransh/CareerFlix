@@ -7,3 +7,5 @@ _source
 .env
 .env.*
 !.env.example
+
+.vercel

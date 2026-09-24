@@ -25,24 +25,12 @@ export function MotionLayer() {
   const root = useRef<HTMLDivElement>(null);
 
   useGSAP((_ctx, contextSafe) => {
+    if (!contextSafe) return;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const spot = root.current?.querySelector(".fx-spot") as HTMLElement | null;
     const bar = root.current?.querySelector(".fx-progress") as HTMLElement | null;
     const cleanups: Array<() => void> = [];
 
     gsap.ticker.lagSmoothing(500, 33);
-
-    if (spot) {
-      const xTo = gsap.quickTo(spot, "x", { duration: 0.55, ease: "power3.out" });
-      const yTo = gsap.quickTo(spot, "y", { duration: 0.55, ease: "power3.out" });
-      const onMove = contextSafe((event: Event) => {
-        const e = event as PointerEvent;
-        xTo(e.clientX);
-        yTo(e.clientY);
-      });
-      window.addEventListener("pointermove", onMove, { passive: true });
-      cleanups.push(() => window.removeEventListener("pointermove", onMove));
-    }
 
     if (reduce) {
       return () => cleanups.forEach((fn) => fn());
@@ -247,7 +235,6 @@ export function MotionLayer() {
   return (
     <div className="fx" ref={root} aria-hidden="true">
       <div className="fx-progress" />
-      <div className="fx-spot" />
     </div>
   );
 }

@@ -214,6 +214,7 @@ export function Hero({ onDemo }: Props) {
 
   useGSAP(
     (_ctx, contextSafe) => {
+      if (!contextSafe) return;
       if (paused || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
       const bar = visualRef.current?.querySelector<HTMLElement>(".rot__dot.is-on .rot__dot-prog");
       const prog = { v: 0 };
@@ -237,6 +238,7 @@ export function Hero({ onDemo }: Props) {
 
   useGSAP(
     (_ctx, contextSafe) => {
+      if (!contextSafe) return;
       const root = visualRef.current;
       if (!root || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
       const stage = root.querySelector(".rot");
