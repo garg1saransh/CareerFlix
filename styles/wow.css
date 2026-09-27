@@ -7,17 +7,17 @@
 }
 
 ::selection {
-  background: #ff2f00;
+  background: #9d6fff;
   color: #fff;
 }
 
 html {
-  scrollbar-color: #ff2f00 #140806;
+  scrollbar-color: #9d6fff #140806;
 }
 ::-webkit-scrollbar { width: 10px; }
 ::-webkit-scrollbar-track { background: #140806; }
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(#ff6a2e, #ff2f00);
+  background: linear-gradient(#9b6dff, #9d6fff);
   border-radius: 99px;
 }
 
@@ -29,7 +29,7 @@ html {
   height: 3px;
   width: 100%;
   z-index: 90;
-  background: linear-gradient(90deg, #ff2f00, #ffb347, #7c4dff);
+  background: linear-gradient(90deg, #9d6fff, #d8b4fe, #7c4dff);
   pointer-events: none;
   will-change: transform;
   transform: scaleX(0);
@@ -133,7 +133,7 @@ html {
 .mods__tab,
 .auth-card {
   background-image:
-    radial-gradient(420px circle at var(--mx, 50%) var(--my, 0%), #ff2f0030, transparent 46%);
+    radial-gradient(420px circle at var(--mx, 50%) var(--my, 0%), #9d6fff30, transparent 46%);
 }
 
 .price-card.is-featured {
@@ -145,12 +145,12 @@ html {
   position: absolute;
   inset: -1px;
   border-radius: inherit;
-  background: linear-gradient(135deg, #ff2f00, #ffb347, #7c4dff);
+  background: linear-gradient(135deg, #9d6fff, #d8b4fe, #7c4dff);
   z-index: -1;
 }
 
 .hero__visual .rot__card.is-front {
-  box-shadow: 0 32px 80px #00000099, 0 0 0 1px #ff2f00cc, 0 0 50px #ff2f0066;
+  box-shadow: 0 32px 80px #00000099, 0 0 0 1px #9d6fffcc, 0 0 50px #9d6fff66;
 }
 
 /* ---------- section extras ---------- */
@@ -166,8 +166,8 @@ html {
   width: min(640px, 70%);
   height: 1px;
   transform: translateX(-50%);
-  background: linear-gradient(90deg, transparent, #ff6a2eaa, transparent);
-  box-shadow: 0 0 18px #ff2f0066;
+  background: linear-gradient(90deg, transparent, #9b6dffaa, transparent);
+  box-shadow: 0 0 18px #9d6fff66;
 }
 
 .eyebrow {
@@ -176,8 +176,8 @@ html {
   gap: 8px;
   padding: 6px 12px 6px 8px;
   border-radius: 999px;
-  border: 1px solid #ff6a2e55;
-  background: #ff2f0018;
+  border: 1px solid #9b6dff55;
+  background: #9d6fff18;
 }
 
 .eyebrow:before {
@@ -186,7 +186,7 @@ html {
   height: 8px;
   border-radius: 50%;
   background: var(--brand);
-  box-shadow: 0 0 10px #ff2f00;
+  box-shadow: 0 0 10px #9d6fff;
 }
 
 .split__list li {
@@ -198,7 +198,7 @@ html {
 
 .split__list li:hover {
   transform: translateX(6px);
-  background: #ff2f0014;
+  background: #9d6fff14;
 }
 
 .stats > div {
@@ -211,7 +211,7 @@ html {
   position: absolute;
   inset: auto -20% -40%;
   height: 70%;
-  background: radial-gradient(circle, #ff2f0044, transparent 70%);
+  background: radial-gradient(circle, #9d6fff44, transparent 70%);
   pointer-events: none;
 }
 
@@ -227,8 +227,8 @@ html {
   transform: scaleX(0);
   transform-origin: left center;
   will-change: transform;
-  background: linear-gradient(90deg, #ff2f00, #ffb347) !important;
-  box-shadow: 0 0 12px #ff2f00;
+  background: linear-gradient(90deg, #9d6fff, #d8b4fe) !important;
+  box-shadow: 0 0 12px #9d6fff;
 }
 
 .panel__card {
@@ -246,8 +246,8 @@ html {
 
 .logos {
   background:
-    linear-gradient(90deg, #ff2f0014, transparent 20%, transparent 80%, #7c4dff14),
-    linear-gradient(180deg, transparent, #ff2f000d, transparent);
+    linear-gradient(90deg, #9d6fff14, transparent 20%, transparent 80%, #7c4dff14),
+    linear-gradient(180deg, transparent, #9d6fff0d, transparent);
 }
 
 /* ---------- cta rings ---------- */
@@ -264,7 +264,7 @@ html {
   width: 70%;
   aspect-ratio: 1;
   border-radius: 50%;
-  border: 1px solid #ff6a2e55;
+  border: 1px solid #9b6dff55;
   transform: translateX(-50%);
   animation: ctaRing 7s ease-out infinite;
   pointer-events: none;
@@ -286,7 +286,7 @@ html {
 
 /* ---------- footer glow ---------- */
 .footer {
-  box-shadow: inset 0 80px 80px #ff2f0010;
+  box-shadow: inset 0 80px 80px #9d6fff10;
 }
 
 /* ---------- demo modal ---------- */
@@ -379,7 +379,7 @@ html {
   height: 3px;
   margin: 16px auto 0;
   border-radius: 99px;
-  background: linear-gradient(90deg, #ff2f00, #ffb347);
+  background: linear-gradient(90deg, #9d6fff, #d8b4fe);
   transform-origin: center;
   animation: lineGrow 1.2s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
@@ -397,7 +397,7 @@ html {
   height: 3px;
   margin-top: 16px;
   border-radius: 99px;
-  background: linear-gradient(90deg, #ff2f00, #ffb347);
+  background: linear-gradient(90deg, #9d6fff, #d8b4fe);
 }
 
 @keyframes lineGrow {

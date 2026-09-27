@@ -5,11 +5,16 @@ import "../styles/pages.css";
 import "../styles/polish.css";
 import "../styles/wow.css";
 import "../styles/atelier.css";
+import "../styles/luxe.css";
+import "../styles/atlas.css";
+import "../styles/nova.css";
+import "../styles/pulse.css";
+import "../styles/studio.css";
 
 export const metadata: Metadata = {
   title: "CareerFlix — Interview & Hiring Platform",
   description:
-    "Video interviews, skills assessments, job forms and bulk resume screening — every response scored automatically. Built for teams who hire without a hiring department.",
+    "Video interviews, assessments, job forms, talent pool, scheduling, employee management and bulk resume tools — every response scored automatically. Built for teams who hire without a hiring department.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -22,7 +27,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           }}
         />
       </head>
-      <body className="antialiased">{children}</body>
+      <body className="antialiased nova pulse studio">{children}</body>
     </html>
   );
 }

@@ -1,0 +1,562 @@
+/* Atlas: stacked studio layout + new canvas. Overrides earlier layers. */
+
+body.atlas {
+  --atlas-ink: #f4fbff;
+  --atlas-ice: #7ce8ff;
+  --atlas-coral: #9d6fff;
+  --atlas-gold: #ffc56d;
+  --maxw: 1180px;
+}
+
+:root[data-theme="dark"] body.atlas,
+body.atlas {
+  --bg: #05070d;
+  --bg-alt: #0a1018;
+  --card: #101820;
+  --nav-bg: #05070dcc;
+  --footer-bg: #03050a;
+  --ink: #f4fbff;
+  --ink-2: #c5d4e0;
+  --muted: #8ea0b0;
+  --muted-2: #667688;
+  --line: #7ce8ff22;
+  --line-2: #9d6fff38;
+}
+
+:root[data-theme="light"] body.atlas {
+  --bg: #f4fbff;
+  --bg-alt: #e7f4fb;
+  --card: #ffffff;
+  --nav-bg: #f4fbffee;
+  --footer-bg: #081018;
+  --ink: #081018;
+  --ink-2: #2a3c4c;
+  --muted: #5a7080;
+  --muted-2: #7a8e9c;
+  --line: #08101814;
+  --line-2: #9d6fff28;
+}
+
+body.atlas {
+  background:
+    radial-gradient(980px 520px at 8% -12%, #9d6fff36, transparent 58%),
+    radial-gradient(860px 480px at 100% 0%, #7ce8ff28, transparent 52%),
+    radial-gradient(640px 380px at 50% 120%, #ffc56d16, transparent 48%),
+    var(--bg);
+}
+
+html {
+  scrollbar-color: #9d6fff #05070d;
+}
+
+/* ---------- floating nav ---------- */
+body.atlas .nav--float {
+  position: fixed;
+  top: 16px;
+  left: 0;
+  right: 0;
+  z-index: 80;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+body.atlas .nav--float .nav__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 8px 10px 8px 16px;
+  border-radius: 999px;
+  background: #05070de8;
+  border: 1px solid #7ce8ff28;
+  box-shadow: 0 18px 50px #00000066, inset 0 1px 0 #ffffff14;
+  backdrop-filter: blur(22px) saturate(180%);
+  -webkit-backdrop-filter: blur(22px) saturate(180%);
+}
+
+:root[data-theme="light"] body.atlas .nav--float .nav__inner {
+  background: #ffffffee;
+  border-color: #08101814;
+  box-shadow: 0 14px 36px #08101818;
+}
+
+body.atlas .nav--float.is-stuck .nav__inner {
+  box-shadow: 0 22px 60px #00000080, 0 0 0 1px #9d6fff33, inset 0 1px 0 #ffffff18;
+}
+
+body.atlas .nav--float.is-hidden {
+  transform: translateY(-120%);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.45s var(--ease), opacity 0.35s var(--ease);
+}
+
+body.atlas .nav--float {
+  transition: transform 0.45s var(--ease), opacity 0.35s var(--ease);
+}
+
+body.atlas .nav__menu {
+  background: #ffffff08;
+  border-color: #7ce8ff22;
+}
+
+body.atlas .nav__trigger.is-active {
+  background: linear-gradient(180deg, #b794ff, #9d6fff);
+  box-shadow: 0 10px 22px #9d6fff66;
+}
+
+body.atlas .section,
+body.atlas .cta,
+body.atlas #how-it-works,
+body.atlas #modules,
+body.atlas #features,
+body.atlas #platform,
+body.atlas #pricing {
+  scroll-margin-top: 104px;
+}
+
+/* ---------- stacked hero ---------- */
+body.atlas .hero--stack {
+  padding: 128px 0 72px;
+}
+
+body.atlas .hero--stack .hero__grid {
+  grid-template-columns: 1fr;
+  justify-items: center;
+  gap: 44px;
+}
+
+body.atlas .hero--stack .hero__inner {
+  text-align: center;
+  max-width: 820px;
+  margin: 0 auto;
+}
+
+body.atlas .hero--stack .badge,
+body.atlas .hero--stack .hero__cta,
+body.atlas .hero--stack .hero__trust {
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+body.atlas .hero--stack .badge {
+  display: inline-flex;
+}
+
+body.atlas .hero--stack .hero__visual {
+  width: min(1080px, 100%);
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  overflow: visible;
+}
+
+body.atlas .hero--stack h1 {
+  font-size: clamp(2.6rem, 6.2vw, 5rem);
+  letter-spacing: -0.07em;
+}
+
+body.atlas .hero--stack h1 em {
+  background: linear-gradient(110deg, #9d6fff 0%, #c4b5fd 36%, #ffc56d 62%, #7ce8ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+body.atlas .hero__mesh {
+  background:
+    radial-gradient(ellipse 68% 50% at 12% 0%, #9d6fff66, transparent 58%),
+    radial-gradient(ellipse 52% 42% at 92% 8%, #7ce8ff44, transparent 54%),
+    linear-gradient(#7ce8ff12 1px, transparent 1px),
+    linear-gradient(90deg, #7ce8ff12 1px, transparent 1px);
+  background-size: auto, auto, 72px 72px, 72px 72px;
+}
+
+body.atlas .hero__aurora i:nth-child(2) {
+  background: radial-gradient(circle, #7ce8ff77 0%, transparent 70%);
+}
+
+/* ---------- how it works: numbered steps ---------- */
+body.atlas .flow__head {
+  max-width: 720px;
+  margin: 0 auto 40px;
+  text-align: center;
+}
+
+body.atlas .flow__head .sec-lead {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+body.atlas .flow__steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+body.atlas .flow__steps li {
+  position: relative;
+  padding: 28px 24px 26px;
+  border-radius: 24px;
+  background:
+    radial-gradient(ellipse 80% 60% at 100% 0%, #7ce8ff18, transparent 50%),
+    linear-gradient(180deg, #ffffff10, #ffffff06);
+  border: 1px solid #7ce8ff24;
+  box-shadow: 0 18px 40px #00000040;
+  display: grid;
+  gap: 10px;
+  overflow: hidden;
+}
+
+body.atlas .flow__steps li:after {
+  content: "";
+  position: absolute;
+  inset: auto -20% -40% auto;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #9d6fff33, transparent 68%);
+  pointer-events: none;
+}
+
+body.atlas .flow__num {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  color: #7ce8ff;
+}
+
+body.atlas .flow__steps b {
+  font-size: 20px;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+}
+
+body.atlas .flow__steps span:last-child {
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+body.atlas .flow__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 22px;
+  margin: 28px 0 36px;
+  flex-wrap: wrap;
+}
+
+body.atlas .flow__meta .stats {
+  flex: 1;
+  min-width: min(100%, 520px);
+}
+
+body.atlas .flow__stage .panel,
+body.atlas .feats__stage .panel {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  padding: 18px;
+  border-radius: 28px;
+  background:
+    radial-gradient(ellipse 70% 80% at 0% 0%, #9d6fff30, transparent 50%),
+    linear-gradient(180deg, #0e1620, #0a1018);
+  border: 1px solid #7ce8ff22;
+}
+
+body.atlas .flow__stage .panel__card,
+body.atlas .feats__stage .panel__card {
+  margin: 0;
+}
+
+:root[data-theme="light"] body.atlas .flow__stage .panel,
+:root[data-theme="light"] body.atlas .feats__stage .panel {
+  background:
+    radial-gradient(ellipse 70% 80% at 0% 0%, #9d6fff18, transparent 50%),
+    #e7f4fb;
+}
+
+/* ---------- modules: rail on top ---------- */
+body.atlas .mods--stack {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
+
+body.atlas .mods--stack .mods__rail {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+}
+
+body.atlas .mods--stack .mods__tab {
+  min-height: 108px;
+  padding: 14px 12px 16px;
+  border-radius: 18px;
+  display: grid;
+  align-content: start;
+  gap: 8px;
+}
+
+body.atlas .mods--stack .mods__t small {
+  display: none;
+}
+
+body.atlas .mods--stack .mod {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 0;
+}
+
+/* ---------- features cards ---------- */
+body.atlas .feats__head {
+  max-width: 700px;
+  margin: 0 auto 36px;
+  text-align: center;
+}
+
+body.atlas .feats__head .sec-lead {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+body.atlas .feats__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+body.atlas .feat-card {
+  padding: 22px 20px;
+  border-radius: 22px;
+  background: linear-gradient(180deg, #ffffff10, #ffffff06);
+  border: 1px solid #7ce8ff22;
+  display: grid;
+  justify-items: start;
+  align-content: start;
+  gap: 10px;
+  min-height: 180px;
+  transition: transform 0.4s var(--ease), border-color 0.3s, box-shadow 0.4s;
+}
+
+body.atlas .feat-card .tick {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  background: #9d6fff26;
+  display: grid;
+  place-items: center;
+}
+
+body.atlas .feat-card:hover {
+  transform: translateY(-6px);
+  border-color: #9d6fff77;
+  box-shadow: 0 22px 48px #9d6fff28;
+}
+
+body.atlas .feat-card b {
+  font-size: 18px;
+  letter-spacing: -0.03em;
+}
+
+body.atlas .feat-card > span:last-child {
+  color: var(--muted);
+  font-size: 14.5px;
+  line-height: 1.5;
+}
+
+body.atlas .feats__cta {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 22px;
+  margin-top: 28px;
+}
+
+/* ---------- platform trio ---------- */
+body.atlas .bento--trio {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+body.atlas .bento--trio .bcard {
+  min-height: 100%;
+}
+
+body.atlas .bento--trio .bcard__vis,
+body.atlas .bento--trio .bcard__vis--wide {
+  width: 100%;
+  margin: 18px 0 0;
+}
+
+/* ---------- pricing + cta ---------- */
+body.atlas .prices {
+  background:
+    radial-gradient(ellipse 70% 42% at 50% 0%, #7ce8ff22, transparent 55%),
+    var(--bg);
+}
+
+body.atlas .cta--wide {
+  padding: 40px 0 90px;
+  background: transparent;
+}
+
+body.atlas .cta--wide .cta__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) auto;
+  align-items: center;
+  text-align: left;
+  gap: 28px 48px;
+  width: 100%;
+  max-width: none;
+  padding: 42px 48px;
+  border-radius: 32px;
+  border: 1px solid #7ce8ff33;
+  background:
+    radial-gradient(ellipse 70% 90% at 100% 50%, #9d6fff44, transparent 55%),
+    radial-gradient(ellipse 50% 80% at 0% 0%, #7ce8ff28, transparent 50%),
+    #0c141c;
+}
+
+body.atlas .cta--wide .cta__btns,
+body.atlas .cta--wide .cta__note {
+  grid-column: 2;
+}
+
+body.atlas .cta--wide h2 {
+  grid-column: 1;
+  background: linear-gradient(180deg, #fff, #7ce8ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+body.atlas .cta--wide p:not(.cta__note) {
+  grid-column: 1;
+}
+
+:root[data-theme="light"] body.atlas .cta--wide .cta__inner {
+  background:
+    radial-gradient(ellipse 70% 90% at 100% 50%, #9d6fff18, transparent 55%),
+    #fff;
+}
+
+/* ---------- footer band ---------- */
+body.atlas .footer--band {
+  padding: 48px 0 28px;
+}
+
+body.atlas .footer__band {
+  display: grid;
+  grid-template-columns: 1.3fr 1.4fr auto;
+  gap: 28px;
+  align-items: start;
+  padding-bottom: 28px;
+  border-bottom: 1px solid #ffffff18;
+}
+
+body.atlas .footer__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 18px;
+  align-content: start;
+}
+
+body.atlas .footer__links a {
+  color: #c5d4e0;
+  font-weight: 650;
+  font-size: 14px;
+}
+
+body.atlas .footer__links a:hover {
+  color: #7ce8ff;
+}
+
+body.atlas .footer__cta {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+body.atlas .footer__bottom {
+  padding-top: 18px;
+  color: #8ea0b0;
+}
+
+/* ---------- motion ---------- */
+@keyframes atlasGlow {
+  0%, 100% { box-shadow: 0 0 0 0 #7ce8ff00, inset 0 0 0 1px #9b6dffcc; }
+  50% { box-shadow: 0 0 28px #7ce8ff33, inset 0 0 0 1px #9b6dffcc; }
+}
+
+body.atlas .mods--stack .mods__tab.is-on {
+  animation: atlasGlow 2.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.atlas .mods--stack .mods__tab.is-on {
+    animation: none;
+  }
+}
+
+/* ---------- breakpoints ---------- */
+@media (max-width: 1100px) {
+  body.atlas .feats__grid,
+  body.atlas .bento--trio,
+  body.atlas .flow__steps,
+  body.atlas .flow__stage .panel,
+  body.atlas .feats__stage .panel {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  body.atlas .mods--stack .mods__rail {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  body.atlas .cta--wide .cta__inner,
+  body.atlas .footer__band,
+  body.atlas .mods--stack .mod {
+    grid-template-columns: 1fr;
+  }
+
+  body.atlas .cta--wide .cta__inner {
+    text-align: center;
+  }
+
+  body.atlas .cta--wide h2,
+  body.atlas .cta--wide p,
+  body.atlas .cta--wide .cta__btns,
+  body.atlas .cta--wide .cta__note {
+    grid-column: auto;
+  }
+
+  body.atlas .cta--wide .cta__btns {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 720px) {
+  body.atlas .nav--float .nav__inner {
+    border-radius: 22px;
+    padding: 10px 12px;
+  }
+
+  body.atlas .feats__grid,
+  body.atlas .flow__steps,
+  body.atlas .flow__stage .panel,
+  body.atlas .feats__stage .panel,
+  body.atlas .bento--trio,
+  body.atlas .mods--stack .mods__rail {
+    grid-template-columns: 1fr;
+  }
+
+  body.atlas .hero--stack {
+    padding-top: 108px;
+  }
+}

@@ -99,8 +99,8 @@
 .hero__visual .rot__card.is-front {
   box-shadow:
     0 28px 70px #00000099,
-    0 0 0 1px #ff2f00cc,
-    0 0 56px #ff2f0088;
+    0 0 0 1px #9d6fffcc,
+    0 0 56px #9d6fff88;
 }
 .rot__glow {
   pointer-events: none;
@@ -109,7 +109,7 @@
   inset: 8% 12% auto;
   height: 70%;
   border-radius: 50%;
-  background: radial-gradient(circle, #ff2f0066 0%, #ff8a3d33 38%, transparent 70%);
+  background: radial-gradient(circle, #9d6fff66 0%, #c4b5fd33 38%, transparent 70%);
   animation: rotGlow 4.2s ease-in-out infinite;
   will-change: transform, opacity;
 }
@@ -168,7 +168,7 @@
 .nav.is-hidden { transform: translateY(-110%); }
 .nav__trigger.is-active {
   color: var(--brand);
-  background: #fe4d0e14;
+  background: #9d6fff14;
 }
 .theme-btn--nav {
   width: 40px;
@@ -335,7 +335,7 @@
   font: inherit;
   font-size: 15px;
 }
-.auth-form input:focus { outline: 2px solid #fe4d0e; outline-offset: 1px; }
+.auth-form input:focus { outline: 2px solid #9d6fff; outline-offset: 1px; }
 .auth-form .btn { width: 100%; margin-top: 6px; }
 .auth-form .auth-links {
   display: flex;
@@ -343,14 +343,14 @@
   font-size: 14px;
   margin-top: 6px;
 }
-.auth-form .auth-links a { color: #fe4d0e; font-weight: 700; }
+.auth-form .auth-links a { color: #9d6fff; font-weight: 700; }
 .auth-alt {
   text-align: center;
   color: #64748b;
   font-size: 14.5px;
   margin-top: 22px;
 }
-.auth-alt a { color: #fe4d0e; font-weight: 700; }
+.auth-alt a { color: #9d6fff; font-weight: 700; }
 
 .legal-page {
   min-height: 100vh;
@@ -373,7 +373,7 @@
   padding: 40px 20px;
   font-family: "Plus Jakarta Sans", "Segoe UI", system-ui, sans-serif;
 }
-.nf-page h1 { font-size: 96px; letter-spacing: -0.06em; color: #fe4d0e; line-height: 1; }
+.nf-page h1 { font-size: 96px; letter-spacing: -0.06em; color: #9d6fff; line-height: 1; }
 .nf-page h2 { font-size: 28px; margin: 8px 0 10px; }
 .nf-page p { color: #64748b; margin-bottom: 28px; }
 .nf-search {

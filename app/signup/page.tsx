@@ -27,8 +27,8 @@ function SignupForm() {
         <p>
           We created a {selected.name} workspace. Check your inbox to verify your email, then start building your first interview.
         </p>
-        <Link href="/login/employer" className="btn btn--primary" style={{ width: "100%" }}>
-          Go to login
+        <Link href="/dashboard" className="btn btn--primary" style={{ width: "100%" }}>
+          Go to dashboard
         </Link>
       </div>
     );

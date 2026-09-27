@@ -12,11 +12,12 @@ ScrollTrigger.config({ ignoreMobileResize: true, limitCallbacks: true });
 
 function revealIn(els: Element[]) {
   gsap.to(els, {
+    x: 0,
     y: 0,
     opacity: 1,
-    stagger: 0.06,
-    duration: 0.72,
-    ease: "power3.out",
+    stagger: 0.07,
+    duration: 0.78,
+    ease: "power4.out",
     overwrite: true,
   });
 }
@@ -52,12 +53,20 @@ export function MotionLayer() {
 
     const heroTl = gsap.timeline({
       defaults: { ease: "none" },
-      scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: 0.55 },
+      scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: 0.7 },
     });
-    heroTl.to(".hero__aurora", { yPercent: 14 }, 0);
-    heroTl.to(".hero__mesh", { yPercent: 8 }, 0);
-    heroTl.to(".hero__inner", { y: -18, autoAlpha: 0.5 }, 0);
-    heroTl.to(".hero__visual", { y: 24 }, 0);
+    heroTl.to(".hero__aurora", { xPercent: -8, yPercent: 12 }, 0);
+    heroTl.to(".hero__orb", { xPercent: 10, rotation: 28 }, 0);
+    heroTl.to(".hero__mesh", { xPercent: 6 }, 0);
+    heroTl.to(".hero__inner", { x: -20, autoAlpha: 0.5 }, 0);
+    heroTl.to(".hero__visual", { x: 24 }, 0);
+
+    const intro = gsap.utils.toArray<HTMLElement>(".hero .badge, .hero__sub, .hero__cta, .hero__trust, .hero__metrics");
+    gsap.fromTo(
+      intro,
+      { x: -28, opacity: 0 },
+      { x: 0, opacity: 1, stagger: 0.09, duration: 0.8, ease: "power4.out", delay: 0.08 }
+    );
 
     gsap.set(
       ".sec-title, .sec-lead, .mod__main, .mod__aside, .prices__head, .sec-head--center, .cta__inner, .eyebrow, .reveal",
@@ -65,13 +74,13 @@ export function MotionLayer() {
     );
 
     const firstWave = gsap.utils.toArray<HTMLElement>(
-      ".price-card, .bcard, .stats > div, .mods__tab, .footer__col, .split__list li"
+      ".price-card, .bcard, .stats > div, .mods__tab, .split__list li, .flow__steps li, .hero__metrics > div, .deck__copy, .film__label"
     );
-    gsap.set(firstWave, { y: 28, opacity: 0, visibility: "inherit" });
+    gsap.set(firstWave, { x: -32, opacity: 0, visibility: "inherit" });
     ScrollTrigger.batch(firstWave, {
       start: "top 88%",
       once: true,
-      interval: 0.05,
+      interval: 0.06,
       batchMax: 8,
       onEnter: revealIn,
       onEnterBack: revealIn,
@@ -80,11 +89,11 @@ export function MotionLayer() {
     const secondWave = gsap.utils.toArray<HTMLElement>(
       ".panel__card, .int, .brow, .price-card__inc li, .cta__btns .btn, .cta__note"
     );
-    gsap.set(secondWave, { y: 18, opacity: 0 });
+    gsap.set(secondWave, { x: -18, opacity: 0 });
     ScrollTrigger.batch(secondWave, {
       start: "top 92%",
       once: true,
-      interval: 0.04,
+      interval: 0.05,
       batchMax: 10,
       onEnter: revealIn,
       onEnterBack: revealIn,
@@ -102,24 +111,24 @@ export function MotionLayer() {
     flushSeen(secondWave);
 
     const sections = gsap.utils.toArray<HTMLElement>(
-      "#how-it-works, #modules, #features, #platform, #pricing, .cta, .footer"
+      "#how-it-works, #modules, #features, #platform, #pricing, .cta, .footer, .chapter, .deck"
     );
     sections.forEach((section) => {
       const bits = Array.from(
-        section.querySelectorAll<HTMLElement>(".prices__toggle, .cta__btns, .split__cta")
+        section.querySelectorAll<HTMLElement>(".prices__toggle, .cta__btns, .split__cta, .flow__meta")
       ).filter((el) => !el.closest(".reveal"));
       if (!bits.length) return;
-      gsap.set(bits, { y: 20, opacity: 0 });
+      gsap.set(bits, { x: -16, opacity: 0 });
       let played = false;
       const play = () => {
         if (played) return;
         played = true;
         gsap.to(bits, {
-          y: 0,
+          x: 0,
           opacity: 1,
-          stagger: 0.055,
+          stagger: 0.07,
           duration: 0.7,
-          ease: "power3.out",
+          ease: "power4.out",
         });
       };
       if (section.getBoundingClientRect().top < window.innerHeight * 0.9) play();
@@ -135,12 +144,74 @@ export function MotionLayer() {
       });
     });
 
-    gsap.utils.toArray<HTMLElement>(".split__media .panel").forEach((panel) => {
+    const rail = document.querySelector<HTMLElement>(".flow__track");
+    const draw = document.querySelector<HTMLElement>(".flow__draw");
+    const comet = document.querySelector<HTMLElement>(".flow__comet");
+    if (rail && draw) {
+      gsap.set(draw, { scaleX: 0, transformOrigin: "0% 50%" });
+      gsap.to(draw, {
+        scaleX: 1,
+        ease: "none",
+        scrollTrigger: { trigger: rail, start: "top 82%", end: "top 36%", scrub: 0.45 },
+      });
+    }
+    if (rail && comet) {
+      gsap.fromTo(
+        comet,
+        { x: 0 },
+        {
+          x: () => Math.max(0, (rail.querySelector(".flow__line") as HTMLElement | null)?.offsetWidth || 0),
+          ease: "none",
+          scrollTrigger: { trigger: rail, start: "top 82%", end: "top 36%", scrub: 0.45 },
+        }
+      );
+    }
+
+    gsap.utils.toArray<HTMLElement>(".chapter__rail").forEach((rail) => {
+      gsap.fromTo(
+        rail,
+        { x: -16, opacity: 0 },
+        {
+          x: 0,
+          opacity: 1,
+          duration: 0.7,
+          ease: "power4.out",
+          scrollTrigger: { trigger: rail, start: "top 86%", once: true },
+        }
+      );
+    });
+
+    gsap.utils.toArray<HTMLElement>(".feat-card, .shelf__row").forEach((card, i) => {
+      gsap.fromTo(
+        card,
+        { x: i % 2 ? 28 : -28, opacity: 0 },
+        {
+          x: 0,
+          opacity: 1,
+          duration: 0.72,
+          ease: "power4.out",
+          scrollTrigger: { trigger: card, start: "top 90%", once: true },
+        }
+      );
+    });
+
+    gsap.utils.toArray<HTMLElement>(".sec-title").forEach((title) => {
+      ScrollTrigger.create({
+        trigger: title,
+        start: "top 88%",
+        once: true,
+        onEnter: () => title.classList.add("is-in"),
+        onEnterBack: () => title.classList.add("is-in"),
+      });
+      if (title.getBoundingClientRect().top < window.innerHeight * 0.9) title.classList.add("is-in");
+    });
+
+    gsap.utils.toArray<HTMLElement>(".split__media .panel, .flow__stage .panel, .feats__stage .panel").forEach((panel) => {
       gsap.fromTo(
         panel,
-        { y: 36 },
+        { x: 28 },
         {
-          y: -18,
+          x: -16,
           ease: "none",
           scrollTrigger: {
             trigger: panel,
@@ -182,7 +253,7 @@ export function MotionLayer() {
       });
     });
 
-    gsap.utils.toArray<HTMLElement>(".hero .btn, .cta .btn, .split__cta .btn").forEach((btn) => {
+    gsap.utils.toArray<HTMLElement>(".hero .btn, .cta .btn, .split__cta .btn, .flow__meta .btn").forEach((btn) => {
       const xTo = gsap.quickTo(btn, "x", { duration: 0.35, ease: "power3.out" });
       const yTo = gsap.quickTo(btn, "y", { duration: 0.35, ease: "power3.out" });
       const enterBtn = contextSafe((event: Event) => {

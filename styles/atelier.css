@@ -19,7 +19,7 @@
 }
 
 .split__list:before {
-  background: linear-gradient(180deg, #ff2f00, #ff6a2e88, #ff2f0044);
+  background: linear-gradient(180deg, #9d6fff, #9b6dff88, #9d6fff44);
   transform-origin: top center;
   animation: lineDraw 1.4s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
@@ -31,7 +31,7 @@
   width: 8px;
   height: 20%;
   border-radius: 99px;
-  background: linear-gradient(180deg, transparent, #ffb347, #fff, #ff2f00, transparent);
+  background: linear-gradient(180deg, transparent, #d8b4fe, #fff, #9d6fff, transparent);
   animation: splitTravel 2.6s ease-in-out infinite 0.6s;
   will-change: transform;
 }
@@ -66,7 +66,7 @@
 
 .pc__av,
 .pcard__av {
-  box-shadow: 0 0 0 3px #ff2f0033, 0 8px 18px #0006;
+  box-shadow: 0 0 0 3px #9d6fff33, 0 8px 18px #0006;
   position: relative;
 }
 
@@ -77,14 +77,14 @@
 }
 
 .stats > div {
-  border: 1px solid #ff6a2e33;
+  border: 1px solid #9b6dff33;
   background:
-    radial-gradient(circle at 80% 120%, #ff2f0026, transparent 55%),
+    radial-gradient(circle at 80% 120%, #9d6fff26, transparent 55%),
     linear-gradient(180deg, #ffffff10, #ffffff05);
 }
 
 .stat__n {
-  background: linear-gradient(180deg, #fff, #ffb347);
+  background: linear-gradient(180deg, #fff, #d8b4fe);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -125,7 +125,7 @@
 }
 
 .mods__num {
-  background: linear-gradient(180deg, #ff6a2e, #ff2f00);
+  background: linear-gradient(180deg, #9b6dff, #9d6fff);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -140,15 +140,15 @@
 }
 
 .mod__stat b {
-  color: #ff6a2e;
-  text-shadow: 0 0 20px #ff2f0066;
+  color: #9b6dff;
+  text-shadow: 0 0 20px #9d6fff66;
 }
 
 .marquee__item {
   padding: 8px 14px;
   border-radius: 999px;
-  border: 1px solid #ff6a2e33;
-  background: #ff2f0010;
+  border: 1px solid #9b6dff33;
+  background: #9d6fff10;
 }
 
 .cta__inner {
@@ -156,7 +156,7 @@
   border-radius: 32px;
   border: 1px solid #ffffff22;
   background:
-    radial-gradient(ellipse 80% 70% at 50% 120%, #ff2f0038, transparent 55%),
+    radial-gradient(ellipse 80% 70% at 50% 120%, #9d6fff38, transparent 55%),
     #ffffff0a;
   box-shadow: 0 30px 80px #0006, inset 0 1px 0 #ffffff22;
 }
@@ -171,7 +171,7 @@
   content: "Best value";
   padding: 3px 8px;
   border-radius: 999px;
-  background: #ff2f00;
+  background: #9d6fff;
   color: #fff;
   font-size: 10px;
   letter-spacing: 0.08em;
@@ -180,7 +180,7 @@
 }
 
 .bcard__eyebrow {
-  color: #ff6a2e;
+  color: #9b6dff;
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -196,7 +196,7 @@
 }
 
 .nav.is-stuck {
-  box-shadow: 0 12px 40px #ff2f0014, 0 10px 40px #0000002e;
+  box-shadow: 0 12px 40px #9d6fff14, 0 10px 40px #0000002e;
 }
 
 .footer__top {
@@ -210,13 +210,13 @@
   right: 0;
   top: -28px;
   height: 1px;
-  background: linear-gradient(90deg, transparent, #ff6a2e88, transparent);
+  background: linear-gradient(90deg, transparent, #9b6dff88, transparent);
 }
 
 .demo-modal__panel {
-  border: 1px solid #ff6a2e44;
+  border: 1px solid #9b6dff44;
   background:
-    radial-gradient(ellipse 70% 40% at 100% 0%, #ff2f0026, transparent 50%),
+    radial-gradient(ellipse 70% 40% at 100% 0%, #9d6fff26, transparent 50%),
     #141119;
 }
 
@@ -238,13 +238,13 @@
 }
 
 .rot__dot-prog {
-  background: linear-gradient(90deg, #fff, #ffb347) !important;
+  background: linear-gradient(90deg, #fff, #d8b4fe) !important;
 }
 
 .hero__visual .rot__card {
   background:
     linear-gradient(#1a0f0c, #1a0f0c) padding-box,
-    linear-gradient(160deg, #ff6a2e88, transparent 40%, #7c4dff44) border-box;
+    linear-gradient(160deg, #9b6dff88, transparent 40%, #7c4dff44) border-box;
 }
 
 .logos__label {
@@ -258,7 +258,7 @@
   width: 28px;
   height: 1px;
   margin: 0 12px 4px;
-  background: #ff6a2e88;
+  background: #9b6dff88;
   vertical-align: middle;
 }
 

@@ -5,11 +5,63 @@ import { useRef, useState } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { TOUR_VIEWS, type TourView } from "@/lib/data";
+import { TOUR_HREF } from "@/lib/paths";
 
 gsap.registerPlugin(useGSAP);
 
 const HOLD = 3.6;
 const COUNT = TOUR_VIEWS.length;
+
+const VIEW_LABEL: Record<TourView, string> = {
+  pipeline: "Pipeline",
+  candidates: "Candidates",
+  jobs: "Jobs",
+  interviews: "Interviews",
+  offers: "Offers",
+  people: "People",
+  reports: "Reports",
+};
+
+const VIEW_CAP: Record<TourView, string> = {
+  pipeline: "One role, every stage scored on a single board.",
+  candidates: "The whole pile, ranked high to low.",
+  jobs: "Four live openings — applicants already landing.",
+  interviews: "This week's diary, already on the record.",
+  offers: "Three offers in flight. One already signed.",
+  people: "The same people, now on the team.",
+  reports: "Six months of hiring, in one glance.",
+};
+
+const SATS: Record<TourView, Array<{ n: string; l: string }>> = {
+  pipeline: [
+    { n: "94", l: "Lian Chen" },
+    { n: "42", l: "Active now" },
+  ],
+  candidates: [
+    { n: "96", l: "Elena Vargas" },
+    { n: "128", l: "In the pool" },
+  ],
+  jobs: [
+    { n: "4", l: "Live roles" },
+    { n: "42", l: "Applicants" },
+  ],
+  interviews: [
+    { n: "4", l: "This week" },
+    { n: "94", l: "Top score" },
+  ],
+  offers: [
+    { n: "3", l: "In flight" },
+    { n: "Signed", l: "Elena Vargas" },
+  ],
+  people: [
+    { n: "86", l: "People" },
+    { n: "75%", l: "Onboarding" },
+  ],
+  reports: [
+    { n: "62%", l: "Faster hire" },
+    { n: "18", l: "Days to hire" },
+  ],
+};
 
 function poseFor(slot: number, compact: boolean) {
   const k = compact ? 0.56 : 1;
@@ -112,6 +164,7 @@ function TypedHeadline() {
         {HEAD_A}
         <em>{HEAD_B}</em>
         {HEAD_C}
+        <i className="typed-caret typed-caret--ghost" />
       </span>
       <span className="typed-head__live" aria-hidden="true">
         <span ref={aRef} />
@@ -123,9 +176,7 @@ function TypedHeadline() {
   );
 }
 
-type Props = { onDemo: () => void };
-
-export function Hero({ onDemo }: Props) {
+export function Hero() {
   const copyRef = useRef<HTMLDivElement>(null);
   const visualRef = useRef<HTMLDivElement>(null);
   const cards = useRef<(HTMLElement | null)[]>([]);
@@ -237,6 +288,66 @@ export function Hero({ onDemo }: Props) {
   );
 
   useGSAP(
+    () => {
+      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const root = visualRef.current;
+      if (!root) return;
+      const now = root.querySelector<HTMLElement>(".hero__now b");
+      const cap = root.querySelector<HTMLElement>(".hero__cap");
+      const count = root.querySelector<HTMLElement>(".hero__idx");
+      const sats = root.querySelectorAll<HTMLElement>(".hero__sat");
+      if (now && !reduce) {
+        gsap.fromTo(now, { y: 8, autoAlpha: 0.2 }, { y: 0, autoAlpha: 1, duration: 0.4, ease: "power4.out" });
+      }
+      if (cap && !reduce) {
+        gsap.fromTo(cap, { y: 10, autoAlpha: 0.25 }, { y: 0, autoAlpha: 1, duration: 0.45, ease: "power4.out" });
+      }
+      if (count && !reduce) {
+        gsap.fromTo(count, { y: 6, autoAlpha: 0.3 }, { y: 0, autoAlpha: 1, duration: 0.35, ease: "power4.out" });
+      }
+      if (sats.length && !reduce) {
+        gsap.fromTo(
+          sats,
+          { y: 12, autoAlpha: 0 },
+          { y: 0, autoAlpha: 1, stagger: 0.08, duration: 0.5, ease: "power4.out" }
+        );
+      }
+    },
+    { dependencies: [active], scope: visualRef }
+  );
+
+  useGSAP(
+    () => {
+      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const root = visualRef.current;
+      if (!root || reduce) return;
+      const sats = root.querySelectorAll<HTMLElement>(".hero__sat");
+      const tweens = Array.from(sats).map((el, i) =>
+        gsap.to(el, {
+          y: i ? -10 : 8,
+          duration: 2.8 + i * 0.4,
+          yoyo: true,
+          repeat: -1,
+          ease: "sine.inOut",
+          force3D: true,
+        })
+      );
+      const rail = copyRef.current?.querySelector<HTMLElement>(".hero__rail i");
+      if (rail) {
+        gsap.set(rail, { scaleX: 0, transformOrigin: "0% 50%" });
+        gsap.to(rail, { scaleX: 1, duration: 1.1, delay: 0.9, ease: "power3.out" });
+      }
+      const fills = copyRef.current?.querySelectorAll<HTMLElement>(".hero__fill i");
+      fills?.forEach((el, i) => {
+        gsap.set(el, { scaleX: 0, transformOrigin: "0% 50%" });
+        gsap.to(el, { scaleX: 1, duration: 0.9, delay: 1.05 + i * 0.12, ease: "power3.out" });
+      });
+      return () => tweens.forEach((t) => t.kill());
+    },
+    { scope: visualRef }
+  );
+
+  useGSAP(
     (_ctx, contextSafe) => {
       if (!contextSafe) return;
       const root = visualRef.current;
@@ -261,9 +372,16 @@ export function Hero({ onDemo }: Props) {
 
       root.addEventListener("pointermove", onMove);
       root.addEventListener("pointerleave", onLeave);
+      const onKey = contextSafe((event: Event) => {
+        const e = event as KeyboardEvent;
+        if (e.key === "ArrowRight") setActive((v) => (v + 1) % COUNT);
+        if (e.key === "ArrowLeft") setActive((v) => (v - 1 + COUNT) % COUNT);
+      });
+      window.addEventListener("keydown", onKey);
       return () => {
         root.removeEventListener("pointermove", onMove);
         root.removeEventListener("pointerleave", onLeave);
+        window.removeEventListener("keydown", onKey);
       };
     },
     { scope: visualRef }
@@ -273,15 +391,23 @@ export function Hero({ onDemo }: Props) {
     setActive(TOUR_VIEWS.indexOf(view));
   }
 
+  function step(dir: number) {
+    setActive((v) => (v + dir + COUNT) % COUNT);
+  }
+
   function bindCard(index: number) {
     return (el: HTMLElement | null) => {
       cards.current[index] = el;
     };
   }
 
+  const view = TOUR_VIEWS[active];
+  const sats = SATS[view];
+
   return (
-    <section className="hero">
+    <section className="hero hero--nova hero--studio">
       <div className="hero__mesh" aria-hidden="true" />
+      <div className="hero__orb" aria-hidden="true" />
       <div className="hero__aurora" aria-hidden="true">
         <i />
         <i />
@@ -301,19 +427,37 @@ export function Hero({ onDemo }: Props) {
             <Link href="/signup" className="btn btn--primary">
               Start a free trial
             </Link>
-            <button type="button" className="btn btn--ghost" onClick={onDemo}>
+            <Link href="/demo" className="btn btn--ghost">
               Book a demo
-            </button>
+            </Link>
           </div>
           <ul className="hero__trust hero-in">
             <li>14-day free trial</li>
             <li>No credit card</li>
             <li>Cancel any time</li>
           </ul>
+          <div className="hero__rail hero-in" aria-hidden="true"><i /></div>
+          <div className="hero__metrics hero-in">
+            <div>
+              <b><span data-count="62">0</span>%</b>
+              <small>Faster time-to-hire</small>
+              <span className="hero__fill"><i /></span>
+            </div>
+            <div>
+              <b><span data-count="8">0</span></b>
+              <small>Tools, one login</small>
+              <span className="hero__fill"><i /></span>
+            </div>
+            <div>
+              <b><span data-count="14">0</span>-day</b>
+              <small>Free trial, all modules</small>
+              <span className="hero__fill"><i /></span>
+            </div>
+          </div>
         </div>
 
         <div
-          className="hero__visual"
+          className="hero__visual hero__visual--studio"
           id="tour"
           ref={visualRef}
           role="group"
@@ -321,6 +465,32 @@ export function Hero({ onDemo }: Props) {
           onPointerEnter={() => setPaused(true)}
           onPointerLeave={() => setPaused(false)}
         >
+          <div className="hero__chrome">
+            <div className="hero__now">
+              <i className="hero__pulse" />
+              <span>Now viewing</span>
+              <Link href={TOUR_HREF[view]}><b>{VIEW_LABEL[view]}</b></Link>
+            </div>
+            <span className="hero__idx">0{active + 1} / 07</span>
+            <div className="hero__step">
+              <button type="button" className="hero__dir" aria-label="Previous screen" onClick={() => step(-1)}>
+                ‹
+              </button>
+              <button type="button" className="hero__dir" aria-label="Next screen" onClick={() => step(1)}>
+                ›
+              </button>
+            </div>
+          </div>
+          <div className="hero__sats" aria-hidden="true">
+            <span className="hero__sat">
+              <b>{sats[0].n}</b>
+              <small>{sats[0].l}</small>
+            </span>
+            <span className="hero__sat">
+              <b>{sats[1].n}</b>
+              <small>{sats[1].l}</small>
+            </span>
+          </div>
           <div className="rot__glow" aria-hidden="true" />
           <div className="rot" id="rot">
             <div className="rot__stage" id="rotStage">
@@ -465,12 +635,19 @@ export function Hero({ onDemo }: Props) {
             </div>
             <div className="rot__dots" role="tablist" aria-label="Dashboard sections">
               {TOUR_VIEWS.map((view, i) => (
-                <button key={view} className={`rot__dot${active === i ? " is-on" : ""}`} data-view={view} type="button" onClick={() => go(view)}>
+                <Link
+                  key={view}
+                  href={TOUR_HREF[view]}
+                  className={`rot__dot${active === i ? " is-on" : ""}`}
+                  data-view={view}
+                >
                   {view[0].toUpperCase() + view.slice(1)}
                   {active === i && <i className="rot__dot-prog" />}
-                </button>
+                </Link>
               ))}
             </div>
+            <p className="hero__cap">{VIEW_CAP[view]}</p>
+            <Link href={TOUR_HREF[view]} className="link-arrow">Open {VIEW_LABEL[view]} page</Link>
             <p className="rot__hint">{paused ? "Paused — move away to keep flipping" : "Screens flip automatically"}</p>
           </div>
         </div>

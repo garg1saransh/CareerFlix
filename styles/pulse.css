@@ -1,0 +1,242 @@
+/* Pulse: upgraded layout + extra motion on top of nova. */
+
+body.pulse {
+  --maxw: 1140px;
+}
+
+@media (min-width: 1240px) {
+  body.pulse .wrap {
+    width: min(var(--maxw), calc(100% - 120px));
+    margin-left: auto;
+    margin-right: 40px;
+  }
+}
+
+/* ---------- side index ---------- */
+body.pulse .side-index {
+  display: none;
+}
+
+@media (min-width: 1240px) {
+  body.pulse .side-index {
+    position: fixed;
+    left: 22px;
+    top: 50%;
+    z-index: 70;
+    display: grid;
+    gap: 14px;
+    transform: translateY(-50%);
+  }
+
+  body.pulse .side-index a {
+    display: grid;
+    gap: 2px;
+    color: var(--muted-2);
+    text-decoration: none;
+    font-size: 11px;
+    font-weight: 750;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  body.pulse .side-index a small {
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    color: #9d6fff;
+  }
+
+  body.pulse .side-index a.is-on {
+    color: var(--ink);
+  }
+
+  body.pulse .side-index a.is-on:after {
+    content: "";
+    width: 22px;
+    height: 2px;
+    background: #9d6fff;
+    transform-origin: left center;
+    animation: pulseRule 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+}
+
+@keyframes pulseRule {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+/* ---------- hero metrics ---------- */
+body.pulse .hero__metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 28px;
+  max-width: 480px;
+}
+
+body.pulse .hero__metrics > div {
+  padding: 12px 12px 11px;
+  border-left: 2px solid #9d6fff;
+  background: #ffffff08;
+}
+
+body.pulse .hero__metrics b {
+  display: block;
+  font-size: 22px;
+  letter-spacing: -0.04em;
+}
+
+body.pulse .hero__metrics small {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+/* ---------- dual marquee ---------- */
+body.pulse .logos {
+  padding: 28px 0 36px;
+}
+
+body.pulse .marquee--rev {
+  margin-top: 12px;
+}
+
+body.pulse .marquee--rev .marquee__track {
+  animation-direction: reverse;
+  animation-duration: 52s;
+}
+
+body.pulse .marquee__item {
+  transition: transform 0.35s var(--ease), color 0.3s;
+}
+
+body.pulse .marquee__item:hover {
+  transform: translateY(-4px);
+  color: #9d6fff;
+}
+
+/* ---------- process rail ---------- */
+body.pulse .flow__track {
+  position: relative;
+  margin-top: 8px;
+}
+
+body.pulse .flow__line {
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  top: 22px;
+  height: 2px;
+  background: #9d6fff33;
+}
+
+body.pulse .flow__draw {
+  position: absolute;
+  inset: 0;
+  background: #9d6fff;
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+body.pulse .flow__comet {
+  position: absolute;
+  top: -3px;
+  left: 0;
+  width: 36px;
+  height: 8px;
+  border-radius: 99px;
+  background: linear-gradient(90deg, transparent, #9d6fff, #fff);
+}
+
+body.pulse .flow__steps {
+  position: relative;
+  z-index: 1;
+}
+
+body.pulse .flow__num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #100c09;
+  border: 2px solid #9d6fff;
+  box-shadow: 0 0 0 6px #100c09;
+}
+
+/* ---------- feature mosaic ---------- */
+body.pulse .feats__grid--mosaic {
+  grid-template-columns: 1.25fr 1fr;
+  grid-template-rows: auto auto;
+}
+
+body.pulse .feat-card--lead {
+  min-height: 240px;
+  padding: 28px 24px;
+}
+
+body.pulse .feat-card--lead b {
+  font-size: 26px;
+}
+
+/* ---------- modules strip ---------- */
+body.pulse .mods--stack .mods__tab {
+  position: relative;
+  overflow: hidden;
+}
+
+body.pulse .mods--stack .mods__tab.is-on {
+  animation: none;
+}
+
+/* ---------- cta pulse ---------- */
+body.pulse .cta--wide .cta__inner {
+  position: relative;
+  overflow: hidden;
+}
+
+body.pulse .cta--wide .cta__inner:before {
+  content: "";
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  right: -40px;
+  top: -60px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #9d6fff55, transparent 68%);
+  animation: pulseOrb 6s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes pulseOrb {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-18px, 12px) scale(1.12); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.pulse .side-index a.is-on:after,
+  body.pulse .cta--wide .cta__inner:before,
+  body.pulse .marquee--rev .marquee__track {
+    animation: none;
+  }
+}
+
+@media (max-width: 980px) {
+  body.pulse .feats__grid--mosaic,
+  body.pulse .hero__metrics {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  body.pulse .feat-card--lead {
+    grid-column: 1 / -1;
+    min-height: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  body.pulse .hero__metrics {
+    grid-template-columns: 1fr;
+  }
+}

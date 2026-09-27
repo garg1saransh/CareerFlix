@@ -1,24 +1,21 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { BrandLogo } from "@/components/BrandLogo";
-import { IconClose, IconMenu, IconMoon, IconSun } from "@/lib/icons";
+import { FooterStudio } from "@/components/landing/FooterStudio";
+import { IconMenu, IconMoon, IconSun } from "@/lib/icons";
+import { NAV_PAGES } from "@/lib/paths";
 
 type Props = {
-  onDemo: () => void;
+  onDemo?: () => void;
   children: React.ReactNode;
 };
 
-const NAV = [
-  { href: "#modules", label: "Modules" },
-  { href: "#how-it-works", label: "How It Works" },
-  { href: "#features", label: "Features" },
-  { href: "#pricing", label: "Pricing" },
-];
-
 export function SiteChrome({ onDemo, children }: Props) {
-  const [topbar, setTopbar] = useState(true);
+  const pathname = usePathname();
+  const home = pathname === "/";
   const [stuck, setStuck] = useState(false);
   const [hidden, setHidden] = useState(false);
   const [open, setOpen] = useState(false);
@@ -46,7 +43,8 @@ export function SiteChrome({ onDemo, children }: Props) {
   }, [open]);
 
   useEffect(() => {
-    const ids = ["how-it-works", "modules", "features", "pricing"];
+    if (!home) return;
+    const ids = ["how-it-works", "modules", "desk", "features", "pricing"];
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -60,7 +58,7 @@ export function SiteChrome({ onDemo, children }: Props) {
       if (el) io.observe(el);
     });
     return () => io.disconnect();
-  }, []);
+  }, [home]);
 
   function toggleTheme() {
     const next = theme === "dark" ? "light" : "dark";
@@ -75,29 +73,22 @@ export function SiteChrome({ onDemo, children }: Props) {
 
   return (
     <>
-      {topbar && (
-        <div className="topbar" id="topbar">
-          New: every interview, assessment and resume is now scored automatically.{" "}
-          <a href="#modules">See how it works</a>
-          <button className="topbar__close" id="topbarClose" aria-label="Dismiss announcement" onClick={() => setTopbar(false)}>
-            <IconClose />
-          </button>
-        </div>
-      )}
-
-      <header className={`nav${stuck ? " is-stuck" : ""}${hidden ? " is-hidden" : ""}`} id="nav">
+      <header className={`nav nav--line${stuck ? " is-stuck" : ""}${hidden ? " is-hidden" : ""}`} id="nav">
         <div className="wrap nav__inner">
           <BrandLogo href="/" />
           <nav className="nav__menu" aria-label="Main">
-            {NAV.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                className={`nav__trigger${active && item.href === `#${active}` ? " is-active" : ""}`}
-              >
-                {item.label}
-              </a>
-            ))}
+            {NAV_PAGES.map((item) => {
+              const on = home ? active === item.hash : pathname === item.href;
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`nav__trigger${on ? " is-active" : ""}`}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
           </nav>
           <div className="nav__actions">
             <button className="theme-btn theme-btn--nav" type="button" onClick={toggleTheme} aria-label="Switch theme">
@@ -107,9 +98,15 @@ export function SiteChrome({ onDemo, children }: Props) {
             <Link href="/login" className="nav__login">
               Log in
             </Link>
-            <button type="button" className="btn btn--ghost btn--sm" onClick={onDemo}>
-              Book a demo
-            </button>
+            {onDemo ? (
+              <button type="button" className="btn btn--ghost btn--sm" onClick={onDemo}>
+                Book a demo
+              </button>
+            ) : (
+              <Link href="/demo" className="btn btn--ghost btn--sm">
+                Book a demo
+              </Link>
+            )}
             <Link href="/signup" className="btn btn--primary btn--sm">
               Start free trial
             </Link>
@@ -127,10 +124,10 @@ export function SiteChrome({ onDemo, children }: Props) {
       </header>
 
       <div className={`drawer${open ? " open" : ""}`} id="drawer">
-        {NAV.map((item) => (
-          <a key={item.href} className="drawer__link" href={item.href} onClick={closeDrawer}>
+        {NAV_PAGES.map((item) => (
+          <Link key={item.href} className="drawer__link" href={item.href} onClick={closeDrawer}>
             {item.label}
-          </a>
+          </Link>
         ))}
         <Link href="/login" className="drawer__link" onClick={closeDrawer}>
           Log in
@@ -139,16 +136,22 @@ export function SiteChrome({ onDemo, children }: Props) {
           <Link href="/signup" className="btn btn--primary" onClick={closeDrawer}>
             Start free trial
           </Link>
-          <button
-            type="button"
-            className="btn btn--ghost"
-            onClick={() => {
-              closeDrawer();
-              onDemo();
-            }}
-          >
-            Book a demo
-          </button>
+          {onDemo ? (
+            <button
+              type="button"
+              className="btn btn--ghost"
+              onClick={() => {
+                closeDrawer();
+                onDemo();
+              }}
+            >
+              Book a demo
+            </button>
+          ) : (
+            <Link href="/demo" className="btn btn--ghost" onClick={closeDrawer}>
+              Book a demo
+            </Link>
+          )}
           <button className="theme-btn" id="themeBtnM" type="button" onClick={toggleTheme}>
             <IconMoon />
             <IconSun />
@@ -159,54 +162,7 @@ export function SiteChrome({ onDemo, children }: Props) {
 
       {children}
 
-      <footer className="footer">
-        <div className="wrap">
-          <div className="footer__top">
-            <div>
-              <BrandLogo href="/" />
-              <p className="footer__blurb">
-                Video interviews, skills assessments, job forms, resume screening and WhatsApp messaging — one platform for the whole hiring process.
-              </p>
-              <div className="footer__cta">
-                <Link href="/signup" className="btn btn--primary btn--sm">Start free trial</Link>
-                <button type="button" className="btn btn--ghost btn--sm" onClick={onDemo}>Book a demo</button>
-              </div>
-            </div>
-            <div className="footer__col">
-              <h4>Product</h4>
-              <ul>
-                <li><a href="#modules">Modules</a></li>
-                <li><a href="#how-it-works">How it works</a></li>
-                <li><a href="#features">Features</a></li>
-                <li><a href="#pricing">Pricing</a></li>
-              </ul>
-            </div>
-            <div className="footer__col">
-              <h4>Company</h4>
-              <ul>
-                <li><button type="button" onClick={onDemo}>Book a demo</button></li>
-                <li><Link href="/login">Sign in</Link></li>
-                <li><Link href="/signup">Start a trial</Link></li>
-              </ul>
-            </div>
-            <div className="footer__col">
-              <h4>Legal</h4>
-              <ul>
-                <li><Link href="/privacy">Privacy Policy</Link></li>
-                <li><Link href="/terms">Terms of Service</Link></li>
-              </ul>
-            </div>
-          </div>
-          <div className="footer__bottom">
-            <p>© 2026 CareerFlix. All rights reserved.</p>
-            <div className="footer__legal">
-              <Link href="/privacy">Privacy</Link>
-              <Link href="/terms">Terms</Link>
-              <a href="#pricing">Pricing</a>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <FooterStudio />
     </>
   );
 }

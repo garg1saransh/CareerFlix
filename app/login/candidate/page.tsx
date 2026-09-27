@@ -17,7 +17,7 @@ export default function CandidateLoginPage() {
       return;
     }
     setError("");
-    window.location.href = "/";
+    window.location.href = "/candidates";
   }
 
   return (

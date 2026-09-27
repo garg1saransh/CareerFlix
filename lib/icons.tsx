@@ -103,6 +103,67 @@ export function IconEditor() {
   );
 }
 
+export function IconPool() {
+  return (
+    <svg width="19" height="19" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round">
+      <circle cx="7" cy="7" r="2.4" />
+      <circle cx="13.2" cy="7.4" r="2" />
+      <path d="M2.8 15.2a4.2 4.2 0 018.4 0M11 15.2a3.6 3.6 0 016.2 0" />
+    </svg>
+  );
+}
+
+export function IconSchedule() {
+  return (
+    <svg width="19" height="19" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3.2" y="4.2" width="13.6" height="12.6" rx="2" />
+      <path d="M3.2 8h13.6M7 2.8v2.8M13 2.8v2.8" />
+      <path d="M7.2 11.2h2.2M10.8 11.2h2.2M7.2 13.8h2.2" />
+    </svg>
+  );
+}
+
+export function IconPeople() {
+  return (
+    <svg width="19" height="19" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round">
+      <circle cx="10" cy="6.4" r="2.4" />
+      <path d="M5.2 15.4a4.8 4.8 0 019.6 0" />
+      <circle cx="4.6" cy="8" r="1.6" />
+      <circle cx="15.4" cy="8" r="1.6" />
+    </svg>
+  );
+}
+
+export function IconDash() {
+  return (
+    <svg width="19" height="19" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round">
+      <rect x="3" y="3" width="6" height="6" rx="1.4" />
+      <rect x="11" y="3" width="6" height="4" rx="1.4" />
+      <rect x="11" y="9" width="6" height="8" rx="1.4" />
+      <rect x="3" y="11" width="6" height="6" rx="1.4" />
+    </svg>
+  );
+}
+
+export function IconGear() {
+  return (
+    <svg width="19" height="19" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="10" cy="10" r="2.4" />
+      <path d="M10 3.2v1.6M10 15.2v1.6M3.2 10h1.6M15.2 10h1.6M5.2 5.2l1.1 1.1M13.7 13.7l1.1 1.1M14.8 5.2l-1.1 1.1M6.3 13.7l-1.1 1.1" />
+    </svg>
+  );
+}
+
+export function IconHelp() {
+  return (
+    <svg width="19" height="19" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round">
+      <circle cx="10" cy="10" r="7" />
+      <path d="M8.2 7.8a2 2 0 013.6 1.2c0 1.3-1.8 1.6-1.8 3" />
+      <path d="M10 14.6h.01" />
+    </svg>
+  );
+}
+
 export function IconBrand() {
   return (
     <svg width="21" height="21" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
@@ -136,4 +197,7 @@ export const MODULE_ICONS = {
   forms: IconForms,
   analyser: IconAnalyser,
   editor: IconEditor,
+  pool: IconPool,
+  schedule: IconSchedule,
+  people: IconPeople,
 };
