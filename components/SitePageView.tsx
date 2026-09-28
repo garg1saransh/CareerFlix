@@ -1,6 +1,12 @@
 import Link from "next/link";
 import { DemoForm } from "@/components/DemoForm";
-import { Pricing } from "@/components/landing/Sections";
+import { Chapter } from "@/components/landing/Chapter";
+import { CTA, Pricing } from "@/components/landing/Sections";
+import { DeskStudio } from "@/components/landing/DeskStudio";
+import { FeatureLane } from "@/components/landing/FeatureLane";
+import { FlowStudio } from "@/components/landing/FlowStudio";
+import { ModuleStudio } from "@/components/landing/ModuleStudio";
+import { NavStage, NextStrip } from "@/components/landing/NavStage";
 import { DeskNav } from "@/components/DeskNav";
 import { IconArrow, IconTick } from "@/lib/icons";
 import type { SitePage } from "@/lib/sitePages";
@@ -10,6 +16,79 @@ type Props = {
 };
 
 export function SitePageView({ page }: Props) {
+  if (page.slug === "how-it-works") {
+    return (
+      <main className="navpage navpage--how-it-works">
+        <NavStage slug="how-it-works" />
+        <div className="navpage__studio">
+          <FlowStudio />
+        </div>
+        <NextStrip slug="how-it-works" />
+        <CTA />
+      </main>
+    );
+  }
+
+  if (page.slug === "modules") {
+    return (
+      <main className="navpage navpage--modules">
+        <NavStage slug="modules" />
+        <div className="navpage__studio">
+          <ModuleStudio />
+        </div>
+        <NextStrip slug="modules" />
+        <CTA />
+      </main>
+    );
+  }
+
+  if (page.slug === "desk") {
+    return (
+      <main className="navpage navpage--desk">
+        <NavStage slug="desk" />
+        <div className="navpage__studio">
+          <DeskStudio />
+        </div>
+        <NextStrip slug="desk" />
+        <CTA />
+      </main>
+    );
+  }
+
+  if (page.slug === "features") {
+    return (
+      <main className="navpage navpage--features">
+        <NavStage slug="features" />
+        <div className="navpage__studio">
+          <FeatureLane />
+        </div>
+        <NextStrip slug="features" />
+        <CTA />
+      </main>
+    );
+  }
+
+  if (page.slug === "pricing") {
+    return (
+      <main className="navpage navpage--pricing">
+        <NavStage slug="pricing" />
+        <div className="navpage__studio">
+          <Chapter
+            id="pricing"
+            n="05"
+            kicker="Plans"
+            title="Try the whole platform free for 14 days"
+            lead="Pick a plan, create your account, and every feature on it unlocks immediately — interviews, assessments, job forms, resume tools, talent pool, scheduling and employee management. No card, no charge, nothing to cancel."
+          >
+            <Pricing framed={false} />
+          </Chapter>
+        </div>
+        <NextStrip slug="pricing" />
+        <CTA />
+      </main>
+    );
+  }
+
   return (
     <main className="leaf">
       <div className="wrap leaf__grid">
@@ -22,8 +101,6 @@ export function SitePageView({ page }: Props) {
           <p className="sec-lead">{page.body}</p>
 
           {page.kind === "form" && <DemoForm />}
-
-          {page.kind === "pricing" && <Pricing framed={false} />}
 
           {page.kind === "section" && page.links && (
             <ul className="leaf__cards">

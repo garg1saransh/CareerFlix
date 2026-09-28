@@ -7,6 +7,7 @@ import { BrandLogo } from "@/components/BrandLogo";
 import { FooterStudio } from "@/components/landing/FooterStudio";
 import { IconMenu, IconMoon, IconSun } from "@/lib/icons";
 import { NAV_PAGES } from "@/lib/paths";
+import { homeFor, initials, readSession, type Session } from "@/lib/session";
 
 type Props = {
   onDemo?: () => void;
@@ -21,12 +22,14 @@ export function SiteChrome({ onDemo, children }: Props) {
   const [open, setOpen] = useState(false);
   const [theme, setTheme] = useState<"dark" | "light">("dark");
   const [active, setActive] = useState("");
+  const [session, setSession] = useState<Session | null>(null);
 
   useEffect(() => {
     const stored = window.localStorage.getItem("cf-theme") as "dark" | "light" | null;
     const next = stored ?? "dark";
     setTheme(next);
     document.documentElement.dataset.theme = next;
+    setSession(readSession());
   }, []);
 
   useEffect(() => {
@@ -95,9 +98,16 @@ export function SiteChrome({ onDemo, children }: Props) {
               <IconMoon />
               <IconSun />
             </button>
-            <Link href="/login" className="nav__login">
-              Log in
-            </Link>
+            {session ? (
+              <Link href={homeFor(session.role)} className="nav__account">
+                <span className="ws__av">{initials(session.name)}</span>
+                {session.name.split(" ")[0]}
+              </Link>
+            ) : (
+              <Link href="/login" className="nav__login">
+                Log in
+              </Link>
+            )}
             {onDemo ? (
               <button type="button" className="btn btn--ghost btn--sm" onClick={onDemo}>
                 Book a demo
@@ -129,9 +139,15 @@ export function SiteChrome({ onDemo, children }: Props) {
             {item.label}
           </Link>
         ))}
-        <Link href="/login" className="drawer__link" onClick={closeDrawer}>
-          Log in
-        </Link>
+        {session ? (
+          <Link href={homeFor(session.role)} className="drawer__link" onClick={closeDrawer}>
+            {session.role === "employer" ? "Open workspace" : "My profile"}
+          </Link>
+        ) : (
+          <Link href="/login" className="drawer__link" onClick={closeDrawer}>
+            Log in
+          </Link>
+        )}
         <div className="drawer__cta">
           <Link href="/signup" className="btn btn--primary" onClick={closeDrawer}>
             Start free trial

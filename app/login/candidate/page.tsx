@@ -2,29 +2,36 @@
 
 import Link from "next/link";
 import { FormEvent, useState } from "react";
+import { useRouter } from "next/navigation";
 import { AuthShell } from "@/components/AuthShell";
+import { nameFromEmail, writeSession } from "@/lib/session";
 
 export default function CandidateLoginPage() {
+  const router = useRouter();
   const [error, setError] = useState("");
 
   function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
-    const email = String(data.get("email") || "");
+    const email = String(data.get("email") || "").trim();
     const password = String(data.get("password") || "");
     if (!email || !password) {
       setError("Enter your email and password.");
       return;
     }
-    setError("");
-    window.location.href = "/candidates";
+    writeSession({
+      role: "candidate",
+      name: nameFromEmail(email),
+      email,
+    });
+    router.push("/profile");
   }
 
   return (
     <AuthShell>
       <div className="auth-form">
         <h1>Candidate login</h1>
-        <p>Continue an interview, assessment or application.</p>
+        <p>Sign in to open your profile, interviews and applications.</p>
         <form onSubmit={onSubmit}>
           <label>
             Email

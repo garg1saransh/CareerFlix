@@ -2399,3 +2399,57 @@ body.studio .rot__dot {
     position: static;
   }
 }
+
+body.studio .navpage {
+  padding: 0;
+}
+
+body.studio .stage {
+  padding: calc(var(--nav-h) + 28px) 0 12px;
+}
+
+body.studio .stage__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+body.studio .stage__chip {
+  border: 1px solid var(--line);
+  background: var(--card);
+  color: var(--muted);
+  border-radius: 999px;
+  padding: 7px 14px;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+body.studio .stage__chip.is-on,
+body.studio .stage__chip:hover {
+  color: var(--ink);
+  border-color: #9d6fff66;
+  background: #9d6fff18;
+}
+
+body.studio .stage__title {
+  margin: 0;
+  font-size: clamp(1.8rem, 3.4vw, 2.7rem);
+  letter-spacing: -0.045em;
+  line-height: 1.12;
+}
+
+body.studio .stage .dash__hello {
+  max-width: 58ch;
+}
+
+body.studio .stage__stats {
+  margin-top: 14px;
+}
+
+@media (max-width: 900px) {
+  body.studio .stage .desk__scene {
+    display: none;
+  }
+}

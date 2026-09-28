@@ -5,6 +5,7 @@ import { FormEvent, Suspense, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { AuthShell } from "@/components/AuthShell";
 import { PLANS } from "@/lib/data";
+import { writeSession } from "@/lib/session";
 
 function SignupForm() {
   const params = useSearchParams();
@@ -17,6 +18,16 @@ function SignupForm() {
 
   function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    const data = new FormData(e.currentTarget);
+    const name = String(data.get("name") || "").trim();
+    const email = String(data.get("email") || "").trim();
+    const company = String(data.get("company") || "").trim();
+    writeSession({
+      role: "employer",
+      name: name || "Hiring team",
+      email,
+      company,
+    });
     setDone(true);
   }
 
@@ -27,8 +38,8 @@ function SignupForm() {
         <p>
           We created a {selected.name} workspace. Check your inbox to verify your email, then start building your first interview.
         </p>
-        <Link href="/dashboard" className="btn btn--primary" style={{ width: "100%" }}>
-          Go to dashboard
+        <Link href="/app" className="btn btn--primary" style={{ width: "100%" }}>
+          Enter your workspace
         </Link>
       </div>
     );

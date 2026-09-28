@@ -2,29 +2,37 @@
 
 import Link from "next/link";
 import { FormEvent, useState } from "react";
+import { useRouter } from "next/navigation";
 import { AuthShell } from "@/components/AuthShell";
+import { companyFromEmail, nameFromEmail, writeSession } from "@/lib/session";
 
 export default function EmployerLoginPage() {
+  const router = useRouter();
   const [error, setError] = useState("");
 
   function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
-    const email = String(data.get("email") || "");
+    const email = String(data.get("email") || "").trim();
     const password = String(data.get("password") || "");
     if (!email || !password) {
       setError("Enter your work email and password.");
       return;
     }
-    setError("");
-    window.location.href = "/dashboard";
+    writeSession({
+      role: "employer",
+      name: nameFromEmail(email),
+      email,
+      company: companyFromEmail(email),
+    });
+    router.push("/app");
   }
 
   return (
     <AuthShell>
       <div className="auth-form">
         <h1>Employer login</h1>
-        <p>Access your hiring workspace, candidates and interviews.</p>
+        <p>Sign in to open your hiring workspace and profile.</p>
         <form onSubmit={onSubmit}>
           <label>
             Work email

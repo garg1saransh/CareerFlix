@@ -10,6 +10,8 @@ import "../styles/atlas.css";
 import "../styles/nova.css";
 import "../styles/pulse.css";
 import "../styles/studio.css";
+import "../styles/workspace.css";
+import "../styles/navpages.css";
 
 export const metadata: Metadata = {
   title: "CareerFlix — Interview & Hiring Platform",
